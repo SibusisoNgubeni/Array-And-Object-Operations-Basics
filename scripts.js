@@ -34,14 +34,111 @@ const upperCase = () => {
  console.log(lengths);
 
 
- /*this function creates a new array with the province names converted to lowercase using the map method
- because the default 'sort' behavior is case-sensitive (i.e., uppercase letters come before lowercase letters).
+ /**
+  *For sortedProvinces
+  *this function creates a new array with the province names converted to lowercase using the map method
+   because the default 'sort' behavior is case-sensitive (i.e., uppercase letters come before lowercase letters).
  */
  const sortedProvinces =  provinces.map((province) => 
     province.toLowerCase()).sort();
-
  console.log(sortedProvinces);
   
  
+ /**
+  *For remainingProvinces
+  *The filter method to create a new array, remainingProvinces, that contains only the provinces that do not contain 
+  "Cape".
+  *the toLowerCase() method is used to convert the province name to lowercase before searching, to make the search 
+   case-insensitive because the 'includes()' method is case sensitive, This way, if there is lowerCase "cape" and 
+   upperCase "Cape", they will be matched.
+ */
+const remainingProvinces =provinces.filter((province) => 
+   !province.toLowerCase().includes("cape"));
+console.log(remainingProvinces)
+ 
 
+/*const ContainsS = names.map((name) => {
+   const containsS = name.toLowerCase().includes('s');
+   const message = containsS ? 'contains S' : 'does not contain S';
+   console.log(`${name}: ${containsS} - ${message}`);
+ });
+ */
+ const namesWithS = names.map((name) => ({ 
+   name, 
+   containsS: name.toLowerCase().includes('s'), 
+   message: name.toLowerCase().includes('s') ? 'contains S' : 'does not contain S' 
+ })).forEach((name) => console.log(`${name.name}: ${name.containsS} - ${name.message}`));
+ 
+ 
+ const hasS = names.some((name) => {
+   const containsS = name.toLowerCase().includes('s');
+   console.log(`${name}: ${containsS} - ${containsS ? 'contains S' : 'does not contain S'}`);
+   
+ });
+
+ names.reduce((acc, current, index) => {
+   console.log(` ${current} (${provinces[index]})`);
+   return acc; 
+ }, {});
+ 
+ 
+ 
+ function logProductNames(products) {
+   return products.map(product => product.product);
+ }
+ 
+
+ function formatProducts(products) {
+   return products.map(product => `${product.product}, price: ${product.price}`);
+ }
+
+
+ function calculateTotalPrice(products) {
+   return products
+     .filter(product => product.price !== '')
+     .map(product => ({ ...product, price: Number(product.price) }))
+     .reduce((acc, current) => acc + current.price, 0);
+ }
+ 
+
+  
+  function concatenateProductNames(products) {
+   return products.reduce((acc, current) => acc + current.product, "");
+ }
+ 
+
+ function highestAndLowestPriced(products) {
+   const prices = products.map(product => product.price);
+   const highest = Math.max(...prices);
+   const lowest = Math.min(...prices);
+   return `Highest: ${highest}. Lowest: ${lowest}.`;
+ }
+ 
+
+
+function recreateProductsObject(products) {
+   return Object.entries(products.reduce((acc, current) => {
+     return {
+       ...acc,
+       [current.product]: current
+     };
+   }, {})).reduce((acc, [key, value]) => {
+     return {
+       ...acc,
+       [key]: { name: value.product, cost: value.price }
+     };
+   }, {});
+ }
+
+
+const functions = [
+   logProductNames,
+   formatProducts,
+   calculateTotalPrice,
+   concatenateProductNames,
+   highestAndLowestPriced,
+   recreateProductsObject
+ ];
+ 
+ functions.forEach(functions => console.log(functions(products)));
  
