@@ -57,12 +57,7 @@ const remainingProvinces =provinces.filter((province) =>
 console.log(remainingProvinces)
  
 
-/*const ContainsS = names.map((name) => {
-   const containsS = name.toLowerCase().includes('s');
-   const message = containsS ? 'contains S' : 'does not contain S';
-   console.log(`${name}: ${containsS} - ${message}`);
- });
- */
+
  const namesWithS = names.map((name) => ({ 
    name, 
    containsS: name.toLowerCase().includes('s'), 
@@ -93,6 +88,15 @@ console.log(remainingProvinces)
  }
 
 
+ /**
+ * For calculateTotalPrice 
+ * Calculates the total price of products, filtering out those with no price,
+ * converting price strings to numbers, and summing them.
+ * Using filter() and map() to process the array 
+ * The map method returns a copy of the original array approach avoids mutating 
+   the original array and improves code readability.
+ */
+
  function calculateTotalPrice(products) {
    return products
      .filter(product => product.price !== '')
@@ -101,11 +105,25 @@ console.log(remainingProvinces)
  }
  
 
-  
+/**
+ * For concatenateProductNames
+ * Concatenates the names of all products into a single string.
+ * Using reduce() to iterate through the products array,
+ * accumulating the product names into a single string.
+ */
+
   function concatenateProductNames(products) {
    return products.reduce((acc, current) => acc + current.product, "");
  }
  
+
+ /**
+ * For highestAndLowestPriced 
+ * Using map() to extract prices into a new array
+ * Math.max and Math.min Finds the highest and lowest prices in the products array.
+ * 
+ * Returning a string with both prices for easy display.
+ */
 
  function highestAndLowestPriced(products) {
    const prices = products.map(product => product.price);
@@ -115,6 +133,12 @@ console.log(remainingProvinces)
  }
  
 
+/**
+ * For recreateProductsObject
+ * Recreates the products object with a new structure.
+ * the reduce() method groups products by name
+ * the return Object.entries() and reduce()  statement transforms the object into the desired structure.
+ */
 
 function recreateProductsObject(products) {
    return Object.entries(products.reduce((acc, current) => {
@@ -141,4 +165,4 @@ const functions = [
  ];
  
  functions.forEach(functions => console.log(functions(products)));
- 
+  
